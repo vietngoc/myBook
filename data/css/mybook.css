@@ -1,0 +1,17 @@
+body{margin:0px;padding: 0px; color: #333;height: 100vh; width: 100vw; background: #eee !important;font-family: Helvetica, Arial, sans-serif;}
+h1, h2, h3, h4, h5, h6 {margin:0px; padding:0px;}
+a:hover, a:focus, a:active {color:#aaa !important;}
+#navbar{ height:43px; width: 100vw; color: #999; text-decoration: none; color: white; background-color: #2C2C2C;}
+#about {float: left; display: block; padding: 10px 20px 8px 80px;font-size: 24px; font-weight: 200;
+  line-height: 1; text-decoration: none;color: white;}
+.dropdown-button{float: right;}
+.button {float: right; margin: 6px; padding: 5px 10px 3px; font-size: 16px;
+    text-decoration: none;text-align: center;color: white;cursor: pointer;}
+#titlebook {float: left;  text-overflow:ellipsis; font-family: Georgia,"Times New Roman",Times,serif;
+    font-size: 16px;  padding: 10px 20px; font-weight: normal; text-decoration: none;color: white; }
+#viewer {clear: both; height: calc(100vh - 43px); width: 100vw}
+#book{visibility: visible; position: relative; width: calc(100vw - 160px);height: calc(100vh - 65px); top: 10px; left: 80px; right: 80px;bottom: 15px;}
+#prev, #next { font-family: Helvetica, Arial, sans-serif; width: 60px;color: #DDD;
+    position: absolute; font-weight: bold; right:0px; text-align: center; font-size: 40px; border: 0px solid #fff; ;
+    background: #EEE; cursor: pointer;border-radius:10px;border-radius:20px 0px 0px 20px}
+#prev:hover, #next:hover, #prev:active, #next:active {color: #111; background: #CCC; }

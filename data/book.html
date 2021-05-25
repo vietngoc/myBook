@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html ng-app="myBook">
+<head>
+  <meta charset="utf-8">
+  <title>myBook</title>
+  <link rel="stylesheet" href="css/mybook.css">
+  <link rel="stylesheet" href="css/foundation-icons.css" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="icon" href="img/icon.png" />
+  <script src="lib/zip.min.js"></script>
+  <script src="lib/epub.min.js"></script>
+  <script src="lib/angular.min.js"></script>
+  <script src="lib/ngstorage.min.js"></script>
+  <script src="lib/ngbootstrap.min.js"> </script>
+</head>
+<body ng-controller="StoreCtrl">
+  <nav id="navbar" class="" ng-controller="NavBarCtrl">
+    <span uib-dropdown on-toggle class="dropdown-button">
+      <a href id="setting" uib-dropdown-toggle class="button" title ="Option"><i class="fi-widget"></i> </a>
+      <ul uib-dropdown-menu aria-labelledby="Option" style="float:right; right:10%;left:-450%" >
+       <li role="menuitem"><a href="mailto:vietngoc@live.com">Send bug to me :D</a></li>
+      </ul>
+    </span>
+
+    <span uib-dropdown on-toggle class="dropdown-button" auto-close="disabled">
+      <a href id="layout" uib-dropdown-toggle class="button" title ="Display setting"><i class="fi-text-color"></i></a>
+      <ul uib-dropdown-menu aria-labelledby="layout" style="float: right; right: -90%;left: -250%;">
+        <li role="menuitem"><a style="white-space: normal;" ng-click="setSize(0)";><span>Default</span> <i style="float:right" class="fi-refresh"></i></a></li>
+        <li role="menuitem"><a style="white-space: normal;" ng-click="setSize(1)";><span>Increase</span> <i style="float:right" class="fi-zoom-in"></i></a></li>
+        <li role="menuitem"><a style="white-space: normal;" ng-click="setSize(2)";><span>Decrease</span> <i style="float:right" class="fi-zoom-out"></i> </a></li>
+        <li class="divider"></li>
+        <li role="menuitem"><a style="white-space: normal;" ng-click="setLayout(true)";><span>One page </span><i style="float:right" class="fi-page"></i></a></li>
+        <li role="menuitem"><a style="white-space: normal;" ng-click="setLayout(false)";><span>Two page</span><i style="float:right"  class="fi-page"></i><i style="float:right" class="fi-page"></i></a></li>
+        <li class="divider"></li>
+        <li role="menuitem"><a style="white-space: normal;" ng-click="setTheme(0)";><span>Light Mode<span> <span style="float:right;background:#EEEEEE;color:#333;padding:1px 5px 0px;border: gray 1px double;"> A </span></a></li>
+        <li role="menuitem"><a style="white-space: normal;" ng-click="setTheme(1)";><span>Dark Mode</span> <span style="float:right;background:#333333;color:#EEE;padding:1px 5px 0px;border: gray 1px double;"> A </span></a></li>
+        <li role="menuitem"><a style="white-space: normal;" ng-click="setTheme(2)";><span>Sepia Mode</span> <span style="float:right;background:#F4ECD8;color:#5b4636;padding:1px 5px 0px;border: gray 1px double;"> A </span></a></li>
+        </ul>
+    </span>
+
+    <span uib-dropdown on-toggle class="dropdown-button" auto-close="disabled">
+          <a href id="bookmark" uib-dropdown-toggle class="button" title ="Bookmark"><i class="fi-book-bookmark"></i></a>
+          <ul uib-dropdown-menu aria-labelledby="bookmark" style="float: right; right: -200%;left: -350%;overflow-y: auto; max-height: calc(100vh - 50px);">
+            <li role="menuitem" ng-click="setBookmark()"><a style="white-space: normal;" title="After click here, your bookmark will be stored and shown below" ><span> Add bookmark</span><i style="float:right" class="fi-bookmark"></i></a></li>
+            <li class="divider"></li>
+            <li ng-repeat="anchor in bookmarks"  ng-mouseover="open = true" ng-mouseleave="open = false">
+            <a style="color:red; padding:5px; white-space: normal;">
+              <span style="color:green;text-overflow:clip; padding:0px 5px; display:inline-block;" title="{{anchor.title}}" ng-click="gotoBookmark(anchor.cfi)" contenteditable> {{anchor.label | date: "short"}} </span>
+              <span ng-hide ="open" style="padding:0px 5px 0px 0px; float:right;" >{{anchor.value | number:1}}%</span>
+              <span ng-show="open" style="padding:0px 10px;float:right;" title="Delete bookmark" ng-click="deleteBookmark($index)"><i class="fi-trash"></i></span> </a>
+            </li>
+          </ul>
+    </span>
+
+    <span uib-dropdown on-toggle class="dropdown-button" auto-close="outsideClick">
+      <a href id="navigation" class="button" uib-dropdown-toggle title ="Table of content"><i class="fi-indent-less"></i></a>
+      <ul uib-dropdown-menu aria-labelledby="navigation" style="float: right; right: -290%;left: -300%; overflow: auto; max-height: calc(100vh - 50px);">
+        <li ng-repeat="choice in navigation">
+           <a href ng-click="gotoChapter(choice.cfi)" style="white-space: normal;">{{choice.label}}</a>
+           <ul>
+              <li ng-repeat="chapter in choice.subitems"><a href ng-click="gotoChapter(chapter.cfi)" style="white-space: normal;">{{chapter.label}}</a></li>
+          </ul>
+       </li>
+     </ul>
+    </span>
+    <span class="dropdown-button">
+      <input type="file" id="importBook" accept="application/epub+zip" style="display:none">
+      <a href="" id="" class="button" ng-click="addBook()" title ="Add book"><i class="fi-plus"></i></a>
+    </span>
+
+    <span uib-dropdown on-toggle class="dropdown-button" style="float:left">
+      <a href="" id="about"uib-dropdown-toggle class="title" title ="myBook">myBook</a>
+      <div uib-dropdown-menu aria-labelledby="about" style="display:none; float: left;right: -40%;left: 2%;">
+      </div>
+    </span>
+
+    <span uib-dropdown on-toggle class="dropdown-button" style="float:left; overflow: hidden;">
+      <a href id="titlebook" uib-dropdown-toggle class="title" title ="{{metadata.description}}"> {{metadata.bookTitle}} </a>
+    </span>
+
+  </nav>
+
+  <section id="viewer" class="viewer" ng-style="modeViewer" ng-controller="ViewerCtrl">
+    <article id="book">
+      <div style="top: 43%; position: relative;text-align: center; font-size: 40px;opacity: 0.3;">
+        <p>Your book will appear here :D</p>
+      </div>
+    </article>
+     <nav id="control" style="float:right; margin:0px;">
+     <a id="next" ng-click="nextPage();" style="top: 55%;" title="You can press right arrow button to next page" ><i class="fi-arrow-right"></i></a>
+     <a id="prev" ng-click="prevPage();" style="top: 45%;" title="You should back to previous page by left arrow button"><i class="fi-arrow-left"></i></a>
+   </nav>
+ </section>
+
+  <script src="js/myBookApp.js">  </script>
+</body>
+</html>
