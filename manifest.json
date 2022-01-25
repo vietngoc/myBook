@@ -1,7 +1,8 @@
 {
     "manifest_version": 2,
     "name": "myBook",
-    "version": "0.4.0",
+    "description": "myBook",
+    "version": "0.5.0",
     "icons": {
       "64": "icon.png"
     },

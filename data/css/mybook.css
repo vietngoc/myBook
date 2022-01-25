@@ -1,17 +1,32 @@
-body{margin:0px;padding: 0px; color: #333;height: 100vh; width: 100vw; background: #eee !important;font-family: Helvetica, Arial, sans-serif;}
-h1, h2, h3, h4, h5, h6 {margin:0px; padding:0px;}
-a:hover, a:focus, a:active {color:#aaa !important;}
-#navbar{ height:43px; width: 100vw; color: #999; text-decoration: none; color: white; background-color: #2C2C2C;}
-#about {float: left; display: block; padding: 10px 20px 8px 80px;font-size: 24px; font-weight: 200;
-  line-height: 1; text-decoration: none;color: white;}
-.dropdown-button{float: right;}
-.button {float: right; margin: 6px; padding: 5px 10px 3px; font-size: 16px;
+body{margin:0px;padding: 0px; color: #333;height: 100vh; width: 100vw; overflow: hidden; background: #eee !important;font-family: Helvetica, Arial, sans-serif;}
+h1, h2, h3, h4, h5, h6, ol, ul {margin:0px; padding:0px;}
+a, a:visited {color: #337ab7;text-decoration: none;}
+a, a:hover, a:focus, a:active {cursor: pointer;padding:2px 0px; white-space: normal; text-align: center;}
+ol, ul {}
+
+#Navbar{ height:32px; width: 100vw; color: #999; text-decoration: none; color: white; background-color: #2C2C2C;overflow: hidden;}
+.tool {float: right; margin: 0px; padding: 5px 20px 5px; font-size: 18px; background-color: transparent; border: 0px;
     text-decoration: none;text-align: center;color: white;cursor: pointer;}
-#titlebook {float: left;  text-overflow:ellipsis; font-family: Georgia,"Times New Roman",Times,serif;
-    font-size: 16px;  padding: 10px 20px; font-weight: normal; text-decoration: none;color: white; }
-#viewer {clear: both; height: calc(100vh - 43px); width: 100vw}
-#book{visibility: visible; position: relative; width: calc(100vw - 160px);height: calc(100vh - 65px); top: 10px; left: 80px; right: 80px;bottom: 15px;}
-#prev, #next { font-family: Helvetica, Arial, sans-serif; width: 60px;color: #DDD;
-    position: absolute; font-weight: bold; right:0px; text-align: center; font-size: 40px; border: 0px solid #fff; ;
-    background: #EEE; cursor: pointer;border-radius:10px;border-radius:20px 0px 0px 20px}
-#prev:hover, #next:hover, #prev:active, #next:active {color: #111; background: #CCC; }
+.title {float:left; overflow: hidden; margin: 0px; padding: 5px 0px 5px 35px; background-color: transparent; border: 0px;
+font-size: 20px; text-overflow:ellipsis; font-family: Georgia,"Times New Roman",Times,serif;font-weight: normal; text-decoration: none;color: white;}
+.control{font-family: Helvetica, Arial, sans-serif; width: 1em;color: #DDD; position: absolute; font-weight: bold; right:0px; text-align: center; font-size: 60px;
+ float:right; margin:0px;z-index: 100; border: 0px solid #fff; ; background: #EEE; cursor: pointer;border-radius:20px 0px 0px 20px}
+.control:hover, .control:active, .control:active {color: #111; background: #CCC; }
+
+#TOCBar, #BookmarkBar, #CustomBar {float:right; width: 20vw; max-height: calc(100vh - 50px); top: 40px; right: 8px; position: absolute;z-index: 100;overflow: auto;}
+.sidebar {background: #fff; border-radius: 5px; transition: left .15s cubic-bezier(.55, 0, .2, .8) .08s}
+.sidebar>ul {list-style: none; text-align:left;padding: 0px;overflow:auto;margin: 0px auto;}
+.sidebar>ul>li>a {padding: 0px 5px !important; font-weight: 400; line-height: 1.42857143; color: #333;}
+.sidebar>ul>li>ul {list-style: none; text-align:left; padding: 0px 0.75rem; overflow:auto; margin: 0px auto;}
+.sidebar li {text-decoration: none; padding: 0px 10px; margin: 0.5rem 0px;}
+.sidebar li:hover, .sidebar li:focus, .sidebar li:active {color:#666; background: #eee; padding: 5px 10px; border:1px dotted #111; border-radius: 2px;}
+.sidebar hr {height: 0px; margin: 0.5rem 0; border-top: 1px solid #e9ecef;}
+
+
+#Viewer {clear: both; height: calc(100vh - 32px); width:100vw;}
+.epub-container{overflow-x: hidden !important;overflow-y: auto;}
+.epub-view{word-spacing: 0px;line-height: 0;direction: ltr;}
+
+.light {background: #EEE !important; color: #333 !important}
+.dark {background: rgb(28, 27, 34) !important;color: #EEE !important}
+.sepia {background: #F4ECD8 !important;color: #5B4636 !important}
